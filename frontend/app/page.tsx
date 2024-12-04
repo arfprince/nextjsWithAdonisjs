@@ -61,8 +61,8 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 p-6">
-      <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+    <div className="min-h-screen bg-gradient-to-r from-orange-500 via-indigo-500 to-blue-900 p-6">
+      <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg my-10">
         <h1 className="text-4xl font-extrabold text-center text-gray-900 mb-6">User Management</h1>
 
         {/* Add User Form */}
@@ -75,25 +75,25 @@ const Home = () => {
                 placeholder="Full Name"
                 value={newUser.fullName}
                 onChange={(e) => setNewUser({ ...newUser, fullName: e.target.value })}
-                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 font-black text-black"
               />
               <input
                 type="email"
                 placeholder="Email"
                 value={newUser.email}
                 onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 font-black text-black"
               />
               <input
                 type="password"
                 placeholder="Password"
                 value={newUser.password}
                 onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
-                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 font-black text-black"
               />
               <button
                 onClick={addUser}
-                className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-300"
+                className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-300 font-black text-black"
               >
                 Add User
               </button>
@@ -109,25 +109,25 @@ const Home = () => {
                 placeholder="User ID"
                 value={updateUser.id}
                 onChange={(e) => setUpdateUser({ ...updateUser, id: e.target.value })}
-                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 font-black text-black"
               />
               <input
                 type="text"
                 placeholder="Full Name"
                 value={updateUser.fullName}
                 onChange={(e) => setUpdateUser({ ...updateUser, fullName: e.target.value })}
-                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 font-black text-black"
               />
               <input
                 type="email"
                 placeholder="Email"
                 value={updateUser.email}
                 onChange={(e) => setUpdateUser({ ...updateUser, email: e.target.value })}
-                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 font-black text-black"
               />
               <button
                 onClick={updateUserData}
-                className="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
+                className="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 "
               >
                 Update User
               </button>
@@ -136,14 +136,20 @@ const Home = () => {
 
           {/* User List */}
           <div>
-            <h2 className="text-2xl font-semibold text-gray-700">Users List</h2>
+            <h2 className="text-2xl font-semibold text-indigo-700 mb-4">Users List</h2>
             <ul className="space-y-4">
               {users.map((user) => (
-                <li key={user.id} className="flex justify-between items-center p-4 bg-gray-100 rounded-md shadow-md">
-                  <span className="text-gray-800">{user.fullName} - {user.email}</span>
+                <li
+                  key={user.id}
+                  className="flex justify-between items-center p-4 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 rounded-lg shadow-lg border border-indigo-300"
+                >
+                  <span className="text-indigo-900 font-medium">
+                    <strong>ID:</strong> {user.id} <strong>Name:</strong> {user.fullName}{" "}
+                    <strong>Email:</strong> {user.email}
+                  </span>
                   <button
                     onClick={() => deleteUser(user.id)}
-                    className="text-red-600 hover:text-red-800 transition duration-300"
+                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 shadow-md transition duration-300"
                   >
                     Delete
                   </button>
@@ -151,6 +157,7 @@ const Home = () => {
               ))}
             </ul>
           </div>
+
         </div>
       </div>
     </div>
