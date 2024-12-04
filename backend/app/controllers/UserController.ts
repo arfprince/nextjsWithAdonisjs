@@ -54,10 +54,10 @@ export default class UserController {
   /**
    * Display form to create a new user (optional for API)
    */
-  public async create({}: HttpContext) {
-    // Normally not needed for APIs, but if you want to render a form for UI
-    // You can render a page or something like that
-  }
+  // public async create({}: HttpContext) {
+  //   // Normally not needed for APIs, but if you want to render a form for UI
+  //   // You can render a page or something like that
+  // }
 
   /**
    * Handle form submission to create a new user
@@ -89,9 +89,9 @@ export default class UserController {
   /**
    * Edit individual user (optional for API)
    */
-  public async edit({ params }: HttpContext) {
-    // Not needed for APIs, typically used for rendering HTML forms
-  }
+  // public async edit({ params }: HttpContext) {
+  //   // Not needed for APIs, typically used for rendering HTML forms
+  // }
 
   /**
    * Handle form submission to update an individual user
@@ -121,6 +121,6 @@ export default class UserController {
     }
 
     await user.delete()
-    return response.status(204).send()
+    return response.status(204).send(null)
   }
 }

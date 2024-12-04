@@ -47,7 +47,7 @@ const Home = () => {
     }
   };
 
-  const deleteUser = async (id) => {
+  const deleteUser = async (id: number) => {
     try {
       await axios.delete(`http://localhost:3333/users/${id}`);
       fetchUsers(); // Refresh the list after deletion
