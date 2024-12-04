@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<{ id: number; fullName: string; email: string }[]>([]);
   const [newUser, setNewUser] = useState({ fullName: '', email: '', password: '' });
   const [updateUser, setUpdateUser] = useState({ id: '', fullName: '', email: '' });
 
