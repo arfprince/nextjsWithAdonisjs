@@ -29,7 +29,7 @@ const Home = () => {
 
   const addUser = async () => {
     try {
-      const response = await axios.post('http://localhost:3333/users', newUser);
+      await axios.post('http://localhost:3333/users', newUser);
       fetchUsers(); // Refresh the list after adding the user
       setNewUser({ fullName: '', email: '', password: '' }); // Reset form
     } catch (error) {
@@ -39,7 +39,7 @@ const Home = () => {
 
   const updateUserData = async () => {
     try {
-      const response = await axios.put(`http://localhost:3333/users/${updateUser.id}`, updateUser);
+      await axios.put(`http://localhost:3333/users/${updateUser.id}`, updateUser);
       fetchUsers(); // Refresh the list after updating
       setUpdateUser({ id: '', fullName: '', email: '' }); // Reset form
     } catch (error) {
