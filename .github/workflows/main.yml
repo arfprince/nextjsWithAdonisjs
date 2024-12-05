@@ -45,10 +45,32 @@ jobs:
       run: npm install
 
     # Run tests for AdonisJS (if you have tests)
-    - name: build AdonisJS
+    - name: build AdonisJS 
       working-directory: ./backend
       run: npm run build
-
+      
+    # Log in to Docker Hub
+    - name: Log in to Docker Hub
+      uses: mr-smithers-excellent/docker-build-push@v4
+      with:
+        image: arfprince786/my-app
+        registry: docker.io
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    # - name: Log in to Docker Hub
+    #   uses: docker/login-action@v2
+    #   with:
+    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+    #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+    # Build and push Docker images
+    # - name: Build and push Docker images
+    #   uses: docker/build-push-action@v6
+    #   with:
+    #     context: .  # Path to your Dockerfile
+    #     tags: arfprince786/my-app:latest
+    #     push: true
+        
     # Deploy (if required, can add your own deployment logic here)
     - name: Deploy to Production
       if: github.ref == 'refs/heads/main'
