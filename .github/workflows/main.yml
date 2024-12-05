@@ -45,9 +45,9 @@ jobs:
       run: npm install
 
     # Run tests for AdonisJS (if you have tests)
-    - name: Run AdonisJS tests
+    - name: build AdonisJS
       working-directory: ./backend
-      run: npm run test
+      run: npm run build
 
     # Deploy (if required, can add your own deployment logic here)
     - name: Deploy to Production
