@@ -12,6 +12,26 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
+    - name: Debug Network Configuration
+      run: |
+        echo "Checking network configuration"
+        ip addr
+        ping -c 4 18.184.128.160 || true
+        traceroute 18.184.128.160 || true
+    
+    - name: Install SSH Key
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 18.184.128.160 >> ~/.ssh/known_hosts
+    
+    - name: Test SSH Connection
+      run: |
+        ssh -v -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "echo 'SSH connection successful'"
+    
     - name: Download artifact from CI workflow
       uses: actions/github-script@v6
       with:
@@ -42,10 +62,10 @@ jobs:
         unzip frontend-build.zip
         ls -la
 
-    - name: Upload to VPS
+    - name: Deploy to VPS
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "mkdir -p /var/www/frontend"
-        scp -r .next ubuntu@18.184.128.160:/var/www/frontend
+        scp -v -i ~/.ssh/id_rsa -r .next ubuntu@18.184.128.160:/var/www/frontend
     
     - name: Restart Nginx
-      run: ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "sudo systemctl reload nginx"
+      run: |
+        ssh -v -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "sudo systemctl reload nginx"
