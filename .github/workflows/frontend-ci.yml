@@ -36,6 +36,7 @@ jobs:
     - name: path of next dir
       run: |
         pwd
+        cd fontend
         cd .next
         pwd
 
