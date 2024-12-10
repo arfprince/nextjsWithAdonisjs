@@ -33,12 +33,15 @@ jobs:
         npm run build
 
 
-    - name: Debug build directory
+    - name: Detailed debugging
       run: |
         pwd
         cd frontend
+        echo "Current directory contents:"
         ls -la
-        ls -la .next
+        echo "Detailed .next directory contents:"
+        ls -lR .next
+        echo "Finding .next directory:"
         find . -name ".next"
     
     - name: Upload frontend build artifact
@@ -46,5 +49,7 @@ jobs:
       with:
         name: frontend-build
         path: |
-          frontend/.next
-          !frontend/.next/cache # Adjust this if the build folder is different
+          .next
+          !.next/cache
+        working-directory: frontend
+        if-no-files-found: error
