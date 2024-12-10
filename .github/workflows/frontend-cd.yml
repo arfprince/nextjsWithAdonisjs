@@ -21,7 +21,7 @@ jobs:
     - name: Upload to VPS
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "mkdir -p /var/www/frontend"
-        scp -r frontend/.next ubuntu@18.184.128.160:/var/www/frontend
-
+        scp -r .next ubuntu@18.184.128.160:/var/www/frontend
+    
     - name: Restart Nginx
       run: ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "sudo systemctl reload nginx"
