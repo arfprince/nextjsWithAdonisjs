@@ -33,17 +33,18 @@ jobs:
         npm run build
 
 
-    - name: path of next dir
+    - name: Debug build directory
       run: |
         pwd
         cd frontend
-        cd .next
-        pwd
-
-        
+        ls -la
+        ls -la .next
+        find . -name ".next"
+    
     - name: Upload frontend build artifact
-      if: success()
       uses: actions/upload-artifact@v3
       with:
         name: frontend-build
-        path: frontend/.next/**  # Adjust this if the build folder is different
+        path: |
+          frontend/.next
+          !frontend/.next/cache # Adjust this if the build folder is different
