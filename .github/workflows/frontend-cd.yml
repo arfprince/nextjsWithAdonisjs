@@ -1,0 +1,27 @@
+name: Frontend CD
+
+on:
+  workflow_run:
+    workflows:
+      - Frontend CI
+    types:
+      - completed
+
+jobs:
+  deploy-frontend:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download frontend build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: frontend-build
+
+    - name: Upload to VPS
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "mkdir -p /var/www/frontend"
+        scp -r ./.next ubuntu@18.184.128.160:/var/www/frontend
+
+    - name: Restart Nginx
+      run: ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "sudo systemctl reload nginx"

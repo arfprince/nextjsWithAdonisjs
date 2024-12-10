@@ -1,0 +1,36 @@
+name: Backend CD
+
+on:
+  workflow_run:
+    workflows:
+      - Backend CI
+    types:
+      - completed
+
+jobs:
+  deploy-backend:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download backend build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: backend-build
+
+    - name: Upload Backend to VPS
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "mkdir -p /var/www/backend"
+        scp -r ./backend ubuntu@18.184.128.160:/var/www/backend
+
+    - name: Install dependencies and restart server
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "
+        cd /var/www/backend
+        "
+        ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "
+        npm install
+        "
+        ssh -o StrictHostKeyChecking=no ubuntu@18.184.128.160 "
+        pm2 reload ecosystem.config.js --env production
+        "
