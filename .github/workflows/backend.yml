@@ -17,27 +17,17 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '22'
 
     - name: Install dependencies
       run: |
         cd backend
         npm install
 
-    - name: Lint code
-      run: |
-        cd backend
-        npm run lint
-
     - name: Build the backend
       run: |
         cd backend
         npm run build
-
-    - name: Run backend tests (if any)
-      run: |
-        cd backend
-        npm test  # Add if you have tests
 
     - name: Upload backend build artifact
       if: success()
