@@ -37,4 +37,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: frontend-build
-        path: frontend/.next  # Adjust this if the build folder is different
+        path: ./frontend/.next  # Adjust this if the build folder is different
