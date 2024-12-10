@@ -32,6 +32,14 @@ jobs:
         cd frontend
         npm run build
 
+
+    - name: path of next dir
+      run: |
+        pwd
+        cd .next
+        pwd
+
+        
     - name: Upload frontend build artifact
       if: success()
       uses: actions/upload-artifact@v3
